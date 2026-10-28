@@ -463,3 +463,16 @@ main { width: 100%; overflow: clip; }
   .rsvp-section > p:not(.eyebrow) { font-size: 18px; }
   .rsvp-section .detail-actions { width: min(100%, 420px); margin-inline: auto; }
 }
+
+@media (max-width: 700px) {
+  .invitation {
+    background:
+      linear-gradient(90deg,
+        rgba(43, 27, 21, .98) 0%,
+        rgba(43, 27, 21, .94) 48%,
+        rgba(43, 27, 21, .76) 70%,
+        rgba(43, 27, 21, .3) 100%),
+      url('/images/golden-temple-wedding-portrait.png') 68% center / cover no-repeat,
+      #4b3028;
+  }
+}
