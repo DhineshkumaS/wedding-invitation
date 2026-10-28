@@ -468,10 +468,10 @@ main { width: 100%; overflow: clip; }
   .invitation {
     background:
       linear-gradient(90deg,
-        rgba(43, 27, 21, .98) 0%,
-        rgba(43, 27, 21, .94) 48%,
-        rgba(43, 27, 21, .76) 70%,
-        rgba(43, 27, 21, .3) 100%),
+        rgba(43, 27, 21, .82) 0%,
+        rgba(43, 27, 21, .7) 45%,
+        rgba(43, 27, 21, .28) 70%,
+        rgba(43, 27, 21, .06) 100%),
       url('/images/golden-temple-wedding-portrait.png') 68% center / cover no-repeat,
       #4b3028;
   }
