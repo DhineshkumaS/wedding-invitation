@@ -1,5 +1,10 @@
-﻿node_modules/
+# Dependencies
+node_modules/
+
+# Build output
 dist/
 .vercel/
+
+# Local environment files
 .env*
 !.env.example
