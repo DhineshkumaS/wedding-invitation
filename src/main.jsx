@@ -11,11 +11,11 @@ const wedding = {
   groomQualification: "B.Com. (C.A.)",
   bride: "N. Nithya Dharshini",
   brideQualification: "B.B.A.",
-  receptionStart: new Date("2026-11-15T19:00:00+05:30"),
-  receptionEnd: new Date("2026-11-15T22:00:00+05:30"),
-  receptionDateLabel: "15 November 2026",
-  receptionDayLabel: "Sunday",
-  receptionTimeLabel: "7:00 PM - 10:00 PM",
+  receptionStart: new Date("2026-11-16T07:00:00+05:30"),
+  receptionEnd: new Date("2026-11-17T00:00:00+05:30"),
+  receptionDateLabel: "16 November 2026",
+  receptionDayLabel: "Monday",
+  receptionTimeLabel: "7:00 AM - 12:00 AM",
   dateLabel: "16 November 2026",
   dayLabel: "Monday",
   // Local time in India (UTC+05:30)
@@ -71,8 +71,8 @@ function addToCalendar() {
   const format = (date) =>
     date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
   const calendarEvents = [
-    { id: "reception", title: "Wedding Reception", start: wedding.receptionStart, end: wedding.receptionEnd },
     { id: "ceremony", title: "Wedding Ceremony", start: wedding.start, end: wedding.end, location: `${wedding.venue}, ${wedding.address}` },
+    { id: "reception", title: "Wedding Reception", start: wedding.receptionStart, end: wedding.receptionEnd },
   ];
   const ics = [
     "BEGIN:VCALENDAR",
@@ -244,20 +244,20 @@ function App() {
         <div className="details-heading">
           <p className="eyebrow">SAVE THE DATES</p>
           <h2>Two days to <i>celebrate</i></h2>
-          <p>Join us for the reception and morning ceremony.</p>
+          <p>Join us for the morning ceremony and reception.</p>
         </div>
         <div className="details-grid">
+          <article className="detail-card">
+            <div className="detail-icon"><Clock3 size={23} strokeWidth={1.5} /></div>
+            <p className="detail-label">MARRIAGE CEREMONY</p>
+            <h3>{wedding.dateLabel}</h3>
+            <p>{wedding.dayLabel}<br />{wedding.timeLabel}</p>
+          </article>
           <article className="detail-card">
             <div className="detail-icon"><CalendarDays size={23} strokeWidth={1.5} /></div>
             <p className="detail-label">RECEPTION</p>
             <h3>{wedding.receptionDateLabel}</h3>
             <p>{wedding.receptionDayLabel}<br />{wedding.receptionTimeLabel}</p>
-          </article>
-          <article className="detail-card">
-            <div className="detail-icon"><Clock3 size={23} strokeWidth={1.5} /></div>
-            <p className="detail-label">MORNING CEREMONY</p>
-            <h3>{wedding.dateLabel}</h3>
-            <p>{wedding.dayLabel}<br />{wedding.timeLabel}</p>
           </article>
           <article className="detail-card" id="venue">
             <div className="detail-icon"><MapPin size={23} strokeWidth={1.5} /></div>
