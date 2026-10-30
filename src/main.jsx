@@ -11,11 +11,17 @@ const wedding = {
   groomQualification: "B.Com. (C.A.)",
   bride: "N. Nithya Dharshini",
   brideQualification: "B.B.A.",
-  dateLabel: "Monday, 16 November 2026",
+  receptionStart: new Date("2026-11-15T19:00:00+05:30"),
+  receptionEnd: new Date("2026-11-15T22:00:00+05:30"),
+  receptionDateLabel: "15 November 2026",
+  receptionDayLabel: "Sunday",
+  receptionTimeLabel: "7:00 PM - 10:00 PM",
+  dateLabel: "16 November 2026",
+  dayLabel: "Monday",
   // Local time in India (UTC+05:30)
   start: new Date("2026-11-16T04:30:00+05:30"),
   end: new Date("2026-11-16T06:00:00+05:30"),
-  timeLabel: "4:30 AM – 6:00 AM",
+  timeLabel: "4:30 AM - 6:00 AM",
   venue: "Renuka Mahal",
   address: "Valparai Main Road, Rangasamuthram",
 };
@@ -64,27 +70,33 @@ function Countdown() {
 function addToCalendar() {
   const format = (date) =>
     date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const calendarEvents = [
+    { id: "reception", title: "Wedding Reception", start: wedding.receptionStart, end: wedding.receptionEnd },
+    { id: "ceremony", title: "Wedding Ceremony", start: wedding.start, end: wedding.end, location: `${wedding.venue}, ${wedding.address}` },
+  ];
   const ics = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
     "PRODID:-//Wedding Invitation//EN",
     "CALSCALE:GREGORIAN",
-    "BEGIN:VEVENT",
-    `UID:sasikumar-nithya-dharshini-${wedding.start.getTime()}@wedding-invitation`,
-    `DTSTAMP:${format(new Date())}`,
-    `DTSTART:${format(wedding.start)}`,
-    `DTEND:${format(wedding.end)}`,
-    "SUMMARY:Wedding of S. Sasikumar & N. Nithya Dharshini",
-    `LOCATION:${wedding.venue}, ${wedding.address}`,
-    "DESCRIPTION:Your presence and blessings will make our special day memorable.",
-    "END:VEVENT",
+    ...calendarEvents.flatMap((event) => [
+      "BEGIN:VEVENT",
+      `UID:${event.id}-sasikumar-nithya-dharshini-${event.start.getTime()}@wedding-invitation`,
+      `DTSTAMP:${format(new Date())}`,
+      `DTSTART:${format(event.start)}`,
+      `DTEND:${format(event.end)}`,
+      `SUMMARY:${event.title} - S. Sasikumar & N. Nithya Dharshini`,
+      ...(event.location ? [`LOCATION:${event.location}`] : []),
+      "DESCRIPTION:Your presence and blessings will make our special day memorable.",
+      "END:VEVENT",
+    ]),
     "END:VCALENDAR",
   ].join("\r\n");
   const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "gururajan-shagathiya-wedding.ics";
+  a.download = "wedding-invitation.ics";
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -230,22 +242,22 @@ function App() {
 
       <section className="details-section" id="details">
         <div className="details-heading">
-          <p className="eyebrow">SAVE THE DATE</p>
-          <h2>A day to <i>remember</i></h2>
-          <p>We would be honoured to celebrate this beautiful beginning with you.</p>
+          <p className="eyebrow">SAVE THE DATES</p>
+          <h2>Two days to <i>celebrate</i></h2>
+          <p>Join us for the reception and morning ceremony.</p>
         </div>
         <div className="details-grid">
           <article className="detail-card">
             <div className="detail-icon"><CalendarDays size={23} strokeWidth={1.5} /></div>
-            <p className="detail-label">THE DATE</p>
-            <h3>16 November 2026</h3>
-            <p>Monday</p>
+            <p className="detail-label">RECEPTION</p>
+            <h3>{wedding.receptionDateLabel}</h3>
+            <p>{wedding.receptionDayLabel}<br />{wedding.receptionTimeLabel}</p>
           </article>
           <article className="detail-card">
             <div className="detail-icon"><Clock3 size={23} strokeWidth={1.5} /></div>
-            <p className="detail-label">THE TIME</p>
-            <h3>4:30 AM – 6:00 AM</h3>
-            <p>Morning ceremony</p>
+            <p className="detail-label">MORNING CEREMONY</p>
+            <h3>{wedding.dateLabel}</h3>
+            <p>{wedding.dayLabel}<br />{wedding.timeLabel}</p>
           </article>
           <article className="detail-card" id="venue">
             <div className="detail-icon"><MapPin size={23} strokeWidth={1.5} /></div>
